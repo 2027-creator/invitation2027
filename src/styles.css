@@ -1,0 +1,147 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
+  --font-script: "Pinyon Script", cursive;
+  --font-label: "Marcellus", "Cormorant Garamond", serif;
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sage: var(--sage);
+  --color-blush: var(--blush);
+}
+
+:root {
+  --radius: 2px;
+  --background: oklch(0.965 0.014 110);      /* warm ivory with sage tint */
+  --foreground: oklch(0.28 0.045 240);      /* deep slate-blue ink */
+  --card: oklch(0.99 0.006 95);
+  --card-foreground: oklch(0.33 0.03 230);
+  --popover: oklch(0.99 0.006 95);
+  --popover-foreground: oklch(0.33 0.03 230);
+  --primary: oklch(0.44 0.095 250);           /* deeper forget-me-not blue */
+  --primary-foreground: oklch(0.98 0.008 95);
+  --secondary: oklch(0.95 0.015 160);
+  --secondary-foreground: oklch(0.33 0.03 230);
+  --muted: oklch(0.95 0.012 150);
+  --muted-foreground: oklch(0.45 0.035 220);
+  --accent: oklch(0.52 0.07 160);            /* eucalyptus sage */
+  --accent-foreground: oklch(0.98 0.008 95);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.8 0.035 165);
+  --input: oklch(0.7 0.04 175);
+  --ring: oklch(0.5 0.07 245);
+  --sage: oklch(0.62 0.05 160);
+  --blush: oklch(0.9 0.03 240);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 20% 10%, oklch(0.99 0.01 85 / 0.9), transparent 55%),
+      radial-gradient(circle at 80% 90%, oklch(0.9 0.04 160 / 0.55), transparent 60%);
+    background-attachment: fixed;
+  }
+  ::selection { background: var(--blush); }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+  .rule {
+    display: flex; align-items: center; gap: 1rem;
+    color: var(--accent);
+  }
+  .rule::before, .rule::after {
+    content: ""; height: 1px; flex: 1;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .field {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--input);
+    padding: 0.55rem 0 0.5rem;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--foreground);
+    border-radius: 0;
+    outline: none;
+    transition: border-color .3s;
+  }
+  .field::placeholder { color: oklch(0.68 0.02 190); font-style: italic; }
+  .field:focus { border-color: var(--primary); }
+  .choice {
+    font-family: var(--font-label);
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    border: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+    cursor: pointer; transition: all .3s; text-align: center;
+  }
+  .choice[data-on="true"] { border-color: var(--primary); background: var(--primary); color: var(--primary-foreground); }
+  .btn-ink {
+    font-family: var(--font-label);
+    font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
+    background: var(--primary); color: var(--primary-foreground);
+    padding: 1.05rem 2.4rem; transition: background .4s, letter-spacing .4s;
+  }
+  .btn-ink:hover { background: oklch(0.43 0.07 245); letter-spacing: 0.36em; }
+  .btn-ink:disabled { opacity: .6; }
+  .btn-line {
+    font-family: var(--font-label);
+    font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--primary);
+    border-bottom: 1px solid currentColor; padding-bottom: 3px;
+  }
+  .frame {
+    position: relative;
+    border: 1px solid var(--border);
+    outline: 1px solid var(--border);
+    outline-offset: 6px;
+    background: var(--card);
+  }
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes sway { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(1.2deg); } }
+.rise { animation: rise 1.2s cubic-bezier(.2,.7,.2,1) both; }
+.sway { animation: sway 9s ease-in-out infinite; transform-origin: top left; }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 1.1s ease, transform 1.1s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rise, .sway { animation: none; } .reveal { opacity: 1; transform: none; } }
