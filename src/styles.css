@@ -2850,6 +2850,12 @@ body {
   animation: wet-ink-text 2s ease-in forwards;
 }
 
+@media (max-width: 640px) {
+  .opening-prompt {
+    transform: translateY(-20px);
+  }
+}
+
 @keyframes wet-ink-text {
   0% {
     opacity: 1;
