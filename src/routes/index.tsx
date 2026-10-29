@@ -685,10 +685,10 @@ function Invitation() {
   
   const L = t[lang];
 
-  const MAX_VOLUME = 0.2;
+  const MAX_VOLUME = 0.7;
   const MUSIC_START = 48;
   const MUSIC_END = 150;
-  const INITIAL_VOLUME = 0.02;
+  const INITIAL_VOLUME = 0.2;
 
   const [volume, setVolume] = useState(INITIAL_VOLUME);
   const [muted, setMuted] = useState(false);
