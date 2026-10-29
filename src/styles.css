@@ -2852,7 +2852,7 @@ body {
 
 @media (max-width: 640px) {
   .opening-prompt {
-    transform: translateY(-20px);
+        transform: translate(-50%, calc(-50% - 50px));
   }
 }
 
