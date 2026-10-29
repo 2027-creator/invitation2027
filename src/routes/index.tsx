@@ -548,7 +548,7 @@ function FlyingBirds() {
 }
 
 
-function HangingPhotos({ lang }: { lang: Lang }) {
+function HangingPhotos({ lang, breezeActive }: { lang: Lang, breezeActive: boolean }) {
   const [swinging, setSwinging] = useState<number[]>([]);
 
   const photos = [
@@ -611,14 +611,17 @@ function HangingPhotos({ lang }: { lang: Lang }) {
         <button
           key={i}
           type="button"
-          className={`hanging-photo ${swinging.includes(i) ? "is-swinging" : ""
-            }`}
+          className={`hanging-photo ${
+            swinging.includes(i) ? "is-swinging" : ""
+          } ${breezeActive ? "breeze-hint" : ""}`}
           style={{
             left: photo.left,
             top: photo.top,
             width: photo.width,
             transformOrigin: photo.pivot,
             "--photo-rotation": `${photo.rotation}deg`,
+            "--breeze-angle": `${[4.5, 2.8, 3.6, 4.2][i]}deg`,
+            "--breeze-delay": `${[0, 130, 260, 390][i]}ms`,
           } as CSSProperties}
           aria-label={`${t[lang].swingPhoto} ${i + 1}`}
 
@@ -684,6 +687,31 @@ function Invitation() {
   const [rsvpSubmitted, setRsvpSubmitted] = useState(false);
   
   const L = t[lang];
+
+const [breezeActive, setBreezeActive] = useState(false);
+  const photosSectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const section = photosSectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setBreezeActive(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.25,
+        rootMargin: "0px 0px -10% 0px",
+      }
+    );
+
+    observer.observe(section);
+
+    return () => observer.disconnect();
+  }, [opened]);
 
   const MAX_VOLUME = 0.7;
   const MUSIC_START = 48;
@@ -1105,6 +1133,7 @@ function Invitation() {
 
             {/* Photos */}
             <section
+              ref={photosSectionRef}
               className="relative isolate overflow-hidden pb-28"
               style={{ marginTop: "220px" }}
             >
@@ -1124,7 +1153,7 @@ function Invitation() {
 
                 {/* Rope, flowers, hanging photos */}
                 <div className="relative z-0">
-                  <HangingPhotos lang={lang} />
+                  <HangingPhotos lang={lang} breezeActive={breezeActive}/>
                 </div>
 
 

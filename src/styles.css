@@ -1438,6 +1438,70 @@ body {
   .hanging-photo.is-swinging {
     animation: photo-swing 1.8s ease-in-out;
   }
+
+
+  /* ============================================
+   ONE-TIME GENTLE BREEZE — POLAROIDS & QR
+   ============================================ */
+
+@keyframes hanging-breeze {
+  0%, 100% {
+    transform: rotate(var(--breeze-rest));
+  }
+
+  20% {
+    transform: rotate(
+      calc(var(--breeze-rest) + var(--breeze-angle))
+    );
+  }
+
+  43% {
+    transform: rotate(
+      calc(var(--breeze-rest) - var(--breeze-angle) * 0.48)
+    );
+  }
+
+  65% {
+    transform: rotate(
+      calc(var(--breeze-rest) + var(--breeze-angle) * 0.22)
+    );
+  }
+
+  83% {
+    transform: rotate(
+      calc(var(--breeze-rest) - var(--breeze-angle) * 0.07)
+    );
+  }
+}
+
+/* Each Polaroid keeps its individual resting angle */
+
+.hanging-photo.breeze-hint:not(.is-swinging) {
+  --breeze-rest: var(--photo-rotation, 0deg);
+
+  animation: hanging-breeze 2.8s ease-in-out
+    var(--breeze-delay, 0ms) both;
+}
+
+/* QR code catches the same breeze more gently */
+
+.hanging-qr.breeze-hint:not(.qr-swinging) {
+  --breeze-rest: var(--qr-angle, 0deg);
+  --breeze-angle: 2.5deg;
+  --breeze-delay: 230ms;
+
+  animation: hanging-breeze 2.8s ease-in-out
+    var(--breeze-delay) both;
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .hanging-photo.breeze-hint,
+  .hanging-qr.breeze-hint {
+    animation: none !important;
+  }
+}
   
   /* ============================================
      NATURAL SWING AROUND EACH PHOTO'S RESTING ANGLE
