@@ -39,13 +39,54 @@ import { Music2, VolumeX } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    meta: [
-      { title: "Marijana & Aleksa — 02. 10. 2027." },
-      { name: "description", content: "Pozivnica za venčanje Marijane i Alekse, 2. oktobra 2027. u Novom Sadu." },
-      { property: "og:title", content: "Marijana & Aleksa — Venčanje" },
-      { property: "og:description", content: "Subota, 2. oktobar 2027. · Novi Sad" },
-    ],
-  }),
+  meta: [
+    { title: "Marijana & Aleksa — 02. 10. 2027." },
+    {
+      name: "description",
+      content: "Pozivnica za venčanje Marijane i Alekse, 2. oktobra 2027. u Novom Sadu.",
+    },
+    {
+      property: "og:title",
+      content: "Marijana & Aleksa — Venčanje",
+    },
+    {
+      property: "og:description",
+      content: "Subota, 2. oktobar 2027. · Novi Sad",
+    },
+    {
+      property: "og:type",
+      content: "website",
+    },
+    {
+      property: "og:url",
+      content: "https://marijana-and-aleksa.netlify.app/",
+    },
+    {
+      property: "og:image",
+      content: "https://marijana-and-aleksa.netlify.app/og-image.png",
+    },
+    {
+      property: "og:image:width",
+      content: "1200",
+    },
+    {
+      property: "og:image:height",
+      content: "630",
+    },
+    {
+      property: "og:image:alt",
+      content: "Marijana i Aleksa — pozivnica za venčanje",
+    },
+    {
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      name: "twitter:image",
+      content: "https://marijana-and-aleksa.netlify.app/og-image.png",
+    },
+  ],
+}),
   component: Invitation,
 });
 
