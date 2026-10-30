@@ -34,6 +34,7 @@ import weddingQR from "@/assets/qrcode-ivory2.png";
 import closingLandscape from "@/assets/san-sebastian-footer2.png"
 
 import weddingMusic from "@/assets/wedding-music.mp3";
+import musicArtwork from "@/assets/favicon.png";
 
 import { Music2, VolumeX } from "lucide-react";
 
@@ -763,6 +764,23 @@ const [breezeActive, setBreezeActive] = useState(false);
   const [muted, setMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+useEffect(() => {
+  if (!("mediaSession" in navigator) || !("MediaMetadata" in window)) {
+    return;
+  }
+
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: "Marijana & Aleksa",
+    artist: "Pozivnica za venčanje",
+    album: "02.10.2027",
+    artwork: [
+      {
+        src: new URL(musicArtwork, window.location.origin).href,
+        type: "image/png",
+      },
+    ],
+  });
+}, []);
 
   const startMusic = async () => {
     const audio = audioRef.current;
