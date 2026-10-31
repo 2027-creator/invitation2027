@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties, type FormEvent, type R
 import waxSeal from "@/assets/wax.png";
 import naslovna from "@/assets/naslovna.png";
 import naslovnaMobile from "@/assets/naslovna-mobile0.png";
+import evenstar from "@/assets/evenstar-easter-egg.png";
 
 import openingDesktop from "@/assets/invitation-desktop2.png";
 import openingMobile from "@/assets/invitation2.png";
@@ -487,10 +488,10 @@ type BirdFlight = {
 
 function FlyingBirds() {
   const [birds, setBirds] = useState<BirdFlight[]>([]);
+const nextBirdId = useRef(0);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
-    let nextId = 0;
     let stopped = false;
     const removals = new Set<ReturnType<typeof setTimeout>>();
 
@@ -508,7 +509,7 @@ function FlyingBirds() {
 
       for (let i = 0; i < count; i++) {
         flight.push({
-          id: nextId++,
+          id: nextBirdId.current++, 
 
           // Slightly different flying heights
           height: 65 + Math.random() * 30,
@@ -718,10 +719,36 @@ function HangingPhotos({ lang, breezeActive }: { lang: Lang, breezeActive: boole
   );
 }
 
-
+function HandwrittenText({
+  text,
+  startDelay = 0,
+}: {
+  text: string;
+  startDelay?: number;
+}) {
+  return (
+    <span className="evenstar-typed-line">
+      {Array.from(text).map((letter, index) => (
+        <span
+          key={index}
+          className="evenstar-letter"
+          style={{
+            "--letter-delay": `${startDelay + index * 0.07}s`,
+          } as CSSProperties}
+        >
+          <span className="evenstar-letter-ink">
+            {letter === " " ? "\u00A0" : letter}
+          </span>
+        </span>
+      ))}
+    </span>
+  );
+}
 
 function Invitation() {
   const [lang, setLang] = useState<Lang>("sr");
+  const [evenstarMessageOpen, setEvenstarMessageOpen] = useState(false);
+  const [evenstarMessageKey, setEvenstarMessageKey] = useState(0);
   const [wetReady, setWetReady] = useState(false);
   const [opened, setOpened] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
@@ -953,23 +980,101 @@ useEffect(() => {
 
           {/* Clickable envelope */}
           <div className="opening-envelope">
-            <button
-              type="button"
-              className="opening-wax-seal"
-              onClick={open}
-              aria-label={L.open}
-              style={{
-                "--wax-image": `url("${waxSeal}")`,
-              } as CSSProperties}
+
+          {/* Evenstar hanging from the flowers */}
+          <div
+            className={`evenstar-hanger ${
+              isOpening ? "evenstar-hanger--closing" : ""
+            }`}
+          >
+              <div className="evenstar-swing">
+                <img
+                  src={evenstar}
+                  alt=""
+                  className="evenstar-image"
+                  draggable={false}
+                />
+
+                <button
+                  type="button"
+                  className="evenstar-button"
+                  onClick={() => {
+                    if (evenstarMessageOpen || isOpening) return;
+                  
+                    setEvenstarMessageKey((prev) => prev + 1);
+                    setEvenstarMessageOpen(true);
+                  }}
+                  aria-label={
+                    lang === "sr"
+                      ? "Otkrijte skrivenu poruku"
+                      : "Discover a hidden message"
+                  }
+                />
+              </div>
+            </div>
+          
+
+          {/* Secret handwritten message */}
+          {evenstarMessageOpen && !isOpening && (
+            <div
+              key={evenstarMessageKey}
+              className="evenstar-whisper"
+              role="status"
+              onAnimationEnd={(e) => {
+                if (
+                  e.target === e.currentTarget &&
+                  e.animationName === "evenstar-whisper-fade"
+                ) {
+                  setEvenstarMessageOpen(false);
+                }
+              }}
             >
-              <img
-                src={waxSeal}
-                alt=""
-                className="wax-seal-image"
-                draggable={false}
-              />
-              <span className="wax-shine" aria-hidden="true" />
-            </button>
+              <div className="evenstar-handwriting">
+                <div className="evenstar-desktop-lines">
+                  <HandwrittenText text="Love is never late, nor is it early." />
+                  <HandwrittenText
+                    text="It arrives precisely when it means to."
+                    startDelay={3.0}
+                  />
+                </div>
+
+                <div className="evenstar-tablet-lines">
+                  <HandwrittenText text="Love is never late," />
+                  <HandwrittenText text="nor is it early." startDelay={1.4} />
+                  <HandwrittenText text="It arrives precisely" startDelay={3.2} />
+                  <HandwrittenText text="when it means to." startDelay={4.7} />
+                </div>
+
+                <div className="evenstar-mobile-line">
+                  <HandwrittenText text="Love is never late, nor is it early." />
+                  <HandwrittenText
+                    text="It arrives precisely when it means to."
+                    startDelay={3.0}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Clickable wax seal — unchanged */}
+          <button
+            type="button"
+            className="opening-wax-seal"
+            onClick={open}
+            aria-label={L.open}
+            style={{
+              "--wax-image": `url("${waxSeal}")`,
+            } as CSSProperties}
+          >
+            <img
+              src={waxSeal}
+              alt=""
+              className="wax-seal-image"
+              draggable={false}
+            />
+            <span className="wax-shine" aria-hidden="true" />
+          </button>
+
           </div>
         </section>
       )}
@@ -1234,7 +1339,9 @@ useEffect(() => {
                     href="https://photos.app.goo.gl/hzwWPbFzXwzcm12y8"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`hanging-qr ${qrSwinging ? "qr-swinging" : ""}`}
+                    className={`hanging-qr ${qrSwinging ? "qr-swinging" : ""} ${
+                      breezeActive ? "breeze-hint" : ""
+                    }`}
                     onMouseEnter={() => setQrSwinging(true)}
                     onClick={() => setQrSwinging(true)}
                     onAnimationEnd={(e) => {
