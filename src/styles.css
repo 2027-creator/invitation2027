@@ -3221,7 +3221,7 @@ body {
      Pendant positioning is NOT affected. */
   .opening-envelope .evenstar-whisper {
     position: fixed;
-    top: 40%;
+    top: 37.5%;
     left: 50%;
     width: 90vw;
     height: auto;
