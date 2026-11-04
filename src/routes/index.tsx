@@ -261,7 +261,7 @@ function WetInkReveal({
       return;
     }
 
-    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+    const isMobile = window.matchMedia("(max-width: 1100px) and (orientation: portrait)").matches;
     const image = new Image();
 
     let frame = 0;
@@ -943,7 +943,7 @@ useEffect(() => {
           {/* Responsive watercolor backgrounds */}
           <picture className="opening-background">
             <source
-              media="(max-width: 640px)"
+              media="(max-width: 1100px) and (orientation: portrait)"
               srcSet={openingMobile}
             />
             <img
@@ -1104,7 +1104,7 @@ useEffect(() => {
               {/* Watercolor illustration */}
               <picture className="invitation-hero-picture">
                 <source
-                  media="(max-width: 640px)"
+                  media="(max-width: 640px) and (orientation: portrait)"
                   srcSet={naslovnaMobile}
                 />
 

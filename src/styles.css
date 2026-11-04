@@ -1917,7 +1917,7 @@ body {
    ============================================ */
 
 
-@media (max-width: 640px) {
+@media (max-width: 640px) and (orientation: portrait) {
   .opening-envelope {
     width: max(100%, 70.0935dvh);
     aspect-ratio: 1050 / 1498;
@@ -3095,7 +3095,7 @@ body {
   border-radius: 8px;
 }
 /* Mobile pendant positioning — UNCHANGED */
-@media (max-width: 640px) {
+@media (max-width: 640px) and (orientation: portrait) {
   .opening-envelope .evenstar-hanger {
     top: 0%;
     left: 17%;
@@ -3271,4 +3271,350 @@ body {
     animation: evenstar-whisper-fade 9s linear forwards;
   }
 }
+
+/* ============================================================
+   MOBILE / SMALL TABLET LANDSCAPE
+   Desktop watercolor art + adapted type and hit targets.
+   No changes to portrait positioning or wide desktop styles.
+   ============================================================ */
+@media (orientation: landscape) and (max-width: 1100px) {
+  /* OPENING — desktop art is already chosen by the <picture> JSX.
+     Match the exact desktop artwork's cover geometry so the
+     Evenstar and seal stay attached to their painted positions. */
+  .opening-screen {
+    height: 100svh;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .opening-background-image {
+    object-fit: cover;
+    object-position: center;
+  }
+  .opening-envelope {
+    width: max(100%, 142.994dvh);
+    aspect-ratio: 1500 / 1049;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .opening-wax-seal {
+    left: 49.3667%;
+    top: 76.6%;
+    width: 4.5%;
+  }
+  .opening-envelope .evenstar-hanger {
+    top: -3%;
+    left: 14%;
+    width: 6%;
+  }
+  /* Opening heading — compact, height-aware in short landscape. */
+  .opening-heading {
+    top: 8%;
+    width: min(70%, 660px);
+  }
+  .opening-names {
+    font-size: clamp(2.65rem, min(7vw, 13svh), 5rem);
+    line-height: .79;
+  }
+  .opening-ampersand {
+    margin: .22em 0 .08em;
+  }
+  .opening-prompt {
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(.85rem, min(2vw, 3.8svh), 1.15rem);
+    letter-spacing: .08em;
+    max-width: 70%;
+  }
+  .mobile-line-break { display: none; }
+  /* The secret text follows the desktop art, not the mobile
+     fixed-position message container. One responsive quote only. */
+  .opening-envelope .evenstar-whisper {
+    position: absolute;
+    top: 33%;
+    left: 21%;
+    width: max-content;
+    max-width: 70%;
+    transform: none;
+    text-align: left;
+  }
+  .opening-envelope .evenstar-handwriting {
+    font-size: clamp(14px, min(2.3vw, 4svh), 23px);
+    line-height: 1.05;
+    text-align: left;
+  }
+  .evenstar-desktop-lines,
+  .evenstar-mobile-line { display: none; }
+  .evenstar-tablet-lines {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .evenstar-tablet-lines .evenstar-typed-line {
+    text-align: left;
+    white-space: nowrap;
+  }
+  /* MAIN HERO — desktop art and horizontally set names.
+     Text sizes scale with the available width rather than the
+     now-small screen height. */
+  .invitation-hero-content {
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    max-width: 820px;
+  }
+  .invitation-hero-intro {
+    max-width: 650px;
+    margin: clamp(.3rem, 1.8vw, 1rem) auto .45rem;
+    font-size: clamp(1.05rem, 2.4vw, 1.8rem);
+    line-height: 1.1;
+  }
+  .invitation-hero-names {
+    flex-direction: row;
+    gap: .16em;
+    font-size: clamp(2.6rem, 7vw, 5.2rem);
+    line-height: .95;
+  }
+  .invitation-hero-ampersand {
+    margin: 0;
+    font-size: .45em;
+  }
+  .invitation-hero-sub {
+    max-width: 580px;
+    margin: .35rem auto 0;
+    font-size: clamp(1rem, 2.1vw, 1.5rem);
+    line-height: 1.1;
+  }
+  /* The other watercolor sections already use the desktop
+     artwork by default except where <=640px overrides it. */
+  .details-sections {
+    background-image: var(--details-bg-desktop);
+    background-size: 100% auto;
+    background-position: center top;
+  }
+  .language-switcher {
+    top: 12px;
+    right: 16px;
+  }
+}
+/* Extra-short landscape phones — minimize vertical collisions */
+@media (orientation: landscape) and (max-width: 1100px) and (max-height: 420px) {
+  .opening-heading { top: 5%; }
+  .opening-names {
+    font-size: clamp(2.4rem, 11svh, 3.5rem);
+  }
+  .opening-prompt { top: 54%; }
+  .opening-envelope .evenstar-handwriting {
+    font-size: clamp(13px, 3.7svh, 18px);
+  }
+  .invitation-hero-content { top: 3%; }
+  .invitation-hero-intro { margin-top: .2rem; }
+}
+/* ============================================================
+   DEVICE REVIEW — NOVEMBER 2026
+   Orientation / aspect-ratio tuning for the supplied test sizes.
+   Append AFTER previous landscape rules so they take precedence.
+   Portrait tablets use the tall artwork to keep the Evenstar
+   visible. The wax seal and pendant track that same artwork.
+   ============================================================ */
+/* PORTRAIT TABLETS — 641–1100px: tall artwork, not cropped desktop
+   art. Matches the <picture> source and WetInkReveal in index.tsx. */
+@media (orientation: portrait) and (min-width: 641px) and (max-width: 1100px) {
+  .opening-envelope {
+    width: max(100%, 70.0935dvh);
+    aspect-ratio: 1050 / 1498;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .opening-wax-seal {
+    left: 49.8571%;
+    top: 70.52%;
+    width: 7%;
+  }
+  .opening-envelope .evenstar-hanger {
+    top: 0%;
+    left: 17%;
+    width: 10%;
+  }
+  .opening-heading {
+    top: 15%;
+    width: 92%;
+  }
+  .opening-names {
+    font-size: clamp(5.8rem, 11vw, 8.5rem);
+    line-height: .84;
+  }
+  .opening-prompt {
+    top: 50%;
+    max-width: 88%;
+    font-size: clamp(1.55rem, 2.8vw, 2.15rem);
+    letter-spacing: .08em;
+  }
+  .opening-envelope .evenstar-whisper {
+    position: absolute;
+    top: 36.5%;
+    left: 50%;
+    width: 80%;
+    max-width: none;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .evenstar-desktop-lines,
+  .evenstar-tablet-lines { display: none; }
+  .evenstar-mobile-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0;
+  }
+  .evenstar-mobile-line .evenstar-typed-line {
+    white-space: nowrap;
+    text-align: center;
+  }
+  .opening-envelope .evenstar-handwriting {
+    font-size: clamp(28px, 4vw, 39px);
+    line-height: 1;
+    text-align: center;
+  }
+  /* Improve control readability without affecting phone or desktop. */
+  .language-switcher { top: 24px; right: 28px; gap: 13px; }
+  .language-option { font-size: 16px; padding: 8px 4px; }
+  .language-divider { font-size: 23px; }
+  .music-control { top: 20px; left: 24px; height: 44px; padding: 0 15px; }
+  .music-mute-button { font-size: .82rem; gap: 9px; }
+  .music-mute-button svg { width: 19px; height: 19px; }
+}
+@media (orientation: portrait) and (max-width: 380px) and (max-height: 700px){
+  .opening-prompt {
+    top: 62%;
+    font-size: clamp(1.02rem, 7.5vw, 1.14rem);
+    letter-spacing: .065em;
+  }
+  .opening-names { font-size: clamp(3.5rem, 6.2vw, 5rem); line-height: 1; }
+}
+/* PORTRAIT PHONES — keep narrow, short devices on one prompt line.
+   The 360x800 Galaxy A55 needs a little more breathing room. */
+@media (orientation: portrait) and (max-width: 380px) {
+  .opening-prompt {
+    translate: 0 -30px;
+    font-size: clamp(1.02rem, 7.5vw, 1.14rem);
+    letter-spacing: .065em;
+  }
+  .mobile-line-break { display: none; }
+}
+@media (orientation: portrait) and (max-width: 370px) and (min-height: 760px) {
+  .opening-prompt { top: 60%; }
+}
+/* iPhone SE 375x667: optional alternative is to use two lines.
+   Default: preserve one line, slightly smaller, and reduce the
+   Evenstar text by ~2px with closer line spacing. */
+@media (orientation: portrait) and (min-width: 371px) and (max-width: 380px) and (max-height: 720px) {
+  .opening-prompt { font-size: 1.04rem; letter-spacing: .06em; }
+  .opening-envelope .evenstar-handwriting { font-size: 20px; line-height: .92; }
+}
+/* Tall portrait phones (iPhone 16, Pro Max, Pixel, foldable):
+   use an intentional two-line invitation prompt and raise it.
+   The visual break is provided by .mobile-line-break in JSX. */
+@media (orientation: portrait) and (min-width: 381px) and (max-width: 450px) {
+  .opening-prompt {
+    translate: 0 40px;
+    font-size: clamp(1.55rem, 5.6vw, 1.95rem);
+    line-height: 1.02;
+    letter-spacing: .07em;
+    white-space: normal;
+    width: 88%;
+  }
+  .opening-names { line-height: 1; }
+  .opening-envelope .evenstar-handwriting { font-size: 28px; }
+  .mobile-line-break { display: block; }
+}
+/* iPhone 16 393x852: little higher. */
+@media (orientation: portrait) and (min-width: 385px) and (max-width: 400px) and (min-height: 820px) and (max-height: 890px) {
+  .opening-prompt { top: 51%; }
+}
+/* Very tall iPhone / Pixel: a little higher, retain 2 lines. */
+@media (orientation: portrait) and (min-width: 401px) and (max-width: 450px) and (min-height: 900px) {
+  .opening-prompt { top: 51.5%; }
+}
+/* Larger fold screen 412x968: slightly higher; adjust the
+   pendant by only 1 percentage point to the right. */
+@media (orientation: portrait) and (min-width: 400px) and (max-width: 430px) and (min-height: 960px) {
+  .opening-prompt { top: 56.5%; }
+  .opening-envelope .evenstar-hanger { left: 22%; }
+  .opening-envelope .evenstar-handwriting { font-size: 27px; }
+}
+/* Pixel 9 Pro Fold ~412x922: smaller two-line prompt than
+   similarly sized phones; don't alter the Evenstar. */
+@media (orientation: portrait) and (min-width: 405px) and (max-width: 418px) and (min-height: 900px) and (max-height: 923px) {
+  .opening-prompt { font-size: 1.5rem; top: 56.5%; }
+  .opening-envelope .evenstar-hanger { left: 22%; }
+  .opening-envelope .evenstar-handwriting { font-size: 26px; }
+}
+/* LANDSCAPE — iPhone SE 667x375: lift / shrink prompt so it does
+   not touch the painted arrow. */
+@media (orientation: landscape) and (min-width: 650px) and (max-width: 919px) and (max-height: 400px) {
+  .opening-prompt { top: 56%; font-size: 1.1rem; }
+  .opening-envelope .evenstar-handwriting { font-size: 19px; }
+  .opening-names { font-size: clamp(3.5rem, 6.2vw, 5rem); line-height: 1; }
+  .invitation-hero-content { top: 14%; }
+}
+/* Landscape sizes ~952–968x427–440: lower/larger invitation
+   prompt and slightly enlarge the handwritten Evenstar quote. */
+@media (orientation: landscape) and (min-width: 920px) and (max-width: 985px) and (min-height: 410px) and (max-height: 460px) {
+  .opening-prompt { top: 59%; font-size: 1.17rem; }
+  .opening-envelope .evenstar-handwriting { font-size: 23px; }
+  .opening-names { font-size: clamp(3.8rem, 6.5vw, 5.2rem); line-height: 1; }
+  .invitation-hero-content { top: 14%; }
+}
+/* Around 924x412: only slightly larger quote; unchanged prompt.
+   Pixel 9 and Pixel 10 share these viewport dimensions, so CSS
+   cannot reliably differentiate them. */
+@media (orientation: landscape) and (min-width: 915px) and (max-width: 940px) and (min-height: 400px) and (max-height: 420px) {
+  .opening-envelope .evenstar-handwriting { font-size: 17px; }
+  .invitation-hero-content { top: 14%; }
+}
+/* iPad mini landscape ~1024x768: larger names / prompt / quote. */
+@media (orientation: landscape) and (min-width: 1000px) and (max-width: 1100px) and (min-height: 680px) {
+  .opening-heading { top: 14%; width: 84%; }
+  .opening-names { font-size: clamp(4.8rem, 8.5vw, 6.2rem); line-height: .82; }
+  .opening-prompt { top: 55%; font-size: clamp(1.35rem, 2.3vw, 1.65rem); }
+  .opening-envelope .evenstar-handwriting { font-size: 25px; }
+  .invitation-hero-content { top: 14%; }
+}
+/* iPad Pro 13 landscape ~1376x1032: slightly larger prompt,
+   quote and fixed top-corner controls. */
+@media (orientation: landscape) and (min-width: 1300px) and (max-width: 1410px) and (min-height: 950px) {
+  .opening-prompt { font-size: 1.8rem; top: 55%; }
+  .opening-envelope .evenstar-handwriting { font-size: 34px; }
+  .language-option { font-size: 15px; padding: 7px 4px; }
+  .language-divider { font-size: 23px; }
+  .music-control { height: 44px; padding: 0 16px; }
+  .music-mute-button { font-size: .8rem; }
+  .music-mute-button svg { width: 18px; height: 18px; }
+  .invitation-hero-content { top: 11%; }
+}
+/* Surface Pro 10 landscape 1440x960: four-line quote,
+   raise invitation prompt, enlarge both control groups. */
+@media (orientation: landscape) and (min-width: 1411px) and (max-width: 1500px) and (min-height: 850px) and (max-height: 1000px) {
+  .opening-prompt { top: 56%; font-size: 1.75rem; }
+  .evenstar-desktop-lines,
+  .evenstar-mobile-line { display: none; }
+  .evenstar-tablet-lines {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .opening-envelope .evenstar-handwriting { font-size: 30px; line-height: 1; }
+  .language-option { font-size: 15px; padding: 7px 4px; }
+  .language-divider { font-size: 23px; }
+  .music-control { height: 44px; padding: 0 16px; }
+  .music-mute-button { font-size: .8rem; }
+  .music-mute-button svg { width: 18px; height: 18px; }
+  .invitation-hero-content { top: 11%; }
+}
+ 
  
